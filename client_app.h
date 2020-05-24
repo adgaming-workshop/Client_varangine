@@ -2,9 +2,14 @@
 #define __CLIENT_H__
 
 #include <iostream>
-#include "game_object.h"
+#include <SFML/Network.hpp>
+#include <SFML/Graphics.hpp>
 #include "data_storage.h"
 #include "event_manager.h"
+#include "graphics.h" 
+#include "physics.h"
+#include "scripts.h"
+
 //Нужно дописать получение данных с сервера об отрисовываемых объектах.
 //Приложение-клиент отправляет на сервер данные о событиях
 //(нажатие клавишь клавиатуры).
@@ -17,9 +22,6 @@ private:
 	Client& operator=(Client&){};
 	void deleteInstance();
 
-	DataStorage data_storage; //Данные для отображения на экране
-	RenderController render_controller;
-	ScriptController script_controller;
 	Scaner scaner  = Scaner(&render_controller.window);
 	std::string name;
 
@@ -39,6 +41,10 @@ private:
 	void recieveUpdates();
 	bool extractData();
 public:
+	DataStorage data_storage; //Данные для отображения на экране
+	RenderController render_controller;
+	ScriptController script_controller;
+	PhysicsController physics_controller; // В клиентском приложении не используется
 	static Client* getInstance();
 	void setName(std::string name);
 	void runApp();
